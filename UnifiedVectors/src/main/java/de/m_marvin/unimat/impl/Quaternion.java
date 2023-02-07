@@ -33,6 +33,7 @@ public class Quaternion implements IQuaternion<Quaternion> {
 		this.j = (float)j;
 		this.k = (float)k;
 		this.r = (float)r;
+	}
 
 	public Quaternion(Quaternionfc q) {
 		this.i = q.x();
