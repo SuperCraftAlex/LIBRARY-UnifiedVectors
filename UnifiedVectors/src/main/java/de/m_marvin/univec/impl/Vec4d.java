@@ -1,8 +1,11 @@
 package de.m_marvin.univec.impl;
 
+import de.m_marvin.univec.MathHelper;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector4;
 import de.m_marvin.univec.api.IVector4Math;
+import org.joml.Vector4d;
+import org.joml.Vector4dc;
 
 public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Number>> {
 	
@@ -16,6 +19,21 @@ public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Num
 		this.y = y;
 		this.z = z;
 		this.w = w;
+	}
+
+	public Vec4d(Vector4dc vec) {
+		this.x = vec.x();
+		this.y = vec.y();
+		this.z = vec.z();
+		this.w = vec.w();
+	}
+
+	public Vector4dc convB() {
+		return new Vector4d(x, y, z, w);
+	}
+
+	public Vector4d conv() {
+		return new Vector4d(x, y, z, w);
 	}
 
 	public Vec4d() {
@@ -35,7 +53,11 @@ public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Num
 	public static Vec4d fromVec(Object vectorObject) {
 		return new Vec4d(0, 0, 0, 0).readFrom(vectorObject);
 	}
-	
+
+	public <T> Vec4d(T vectorObject) {
+		readFrom(vectorObject);
+	}
+
 	@Override
 	public <T> Vec4d readFrom(T vectorObject) {
 		try {
@@ -54,6 +76,10 @@ public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Num
 			e.printStackTrace();
 			return vectorObject;
 		}
+	}
+
+	public boolean isFinite() {
+		return MathHelper.isFinite(x) && MathHelper.isFinite(y) && MathHelper.isFinite(z) && MathHelper.isFinite(w);
 	}
 	
 	@Override

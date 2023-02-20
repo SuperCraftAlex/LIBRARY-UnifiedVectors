@@ -3,6 +3,8 @@ package de.m_marvin.univec.impl;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector2;
 import de.m_marvin.univec.api.IVector2Math;
+import org.joml.Vector2i;
+import org.joml.Vector2ic;
 
 /*
  * Implementation of a 2 dimensional integer vector
@@ -15,6 +17,19 @@ public class Vec2i implements IVector2Math<Integer, Vec2i, IVector2<? extends Nu
 	public Vec2i(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public Vec2i(Vector2ic vec) {
+		this.x = vec.x();
+		this.y = vec.y();
+	}
+
+	public Vector2ic convB() {
+		return new Vector2i(x,y);
+	}
+
+	public Vector2i conv() {
+		return new Vector2i(x,y);
 	}
 
 	public Vec2i() {
@@ -30,7 +45,23 @@ public class Vec2i implements IVector2Math<Integer, Vec2i, IVector2<? extends Nu
 	public static Vec2i fromVec(Object vectorObject) {
 		return new Vec2i(0, 0).readFrom(vectorObject);
 	}
-	
+
+	public <T> Vec2i(T vectorObject) {
+		readFrom(vectorObject);
+	}
+
+	public Vec2i add(Vector2ic vec) {
+		return add(new Vec2i(vec));
+	}
+
+	public Vec2i sub(Vector2ic vec) {
+		return sub(new Vec2i(vec));
+	}
+
+	public Vec2i mul(Vector2ic vec) {
+		return mul(new Vec2i(vec));
+	}
+
 	@Override
 	public <T> Vec2i readFrom(T vectorObject) {
 		try {

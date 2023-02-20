@@ -2,9 +2,12 @@ package de.m_marvin.univec.impl;
 
 import de.m_marvin.unimat.api.IQuaternion;
 import de.m_marvin.unimat.impl.Quaternion;
+import de.m_marvin.univec.MathHelper;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector3;
 import de.m_marvin.univec.api.IVector3Math;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 /*
  * Implementation of a 3 dimensional float vector
@@ -19,6 +22,20 @@ public class Vec3f implements IVector3Math<Float, Vec3f, IVector3<? extends Numb
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public Vec3f(Vector3fc vec) {
+		this.x = vec.x();
+		this.y = vec.y();
+		this.z = vec.z();
+	}
+
+	public Vector3fc convB() {
+		return new Vector3f(x,y, z);
+	}
+
+	public Vector3fc conv() {
+		return new Vector3f(x,y, z);
 	}
 
 	public Vec3f() {
@@ -36,7 +53,23 @@ public class Vec3f implements IVector3Math<Float, Vec3f, IVector3<? extends Numb
 	public static Vec3f fromVec(Object vectorObject) {
 		return new Vec3f(0, 0, 0).readFrom(vectorObject);
 	}
-	
+
+	public <T> Vec3f(T vectorObject) {
+		readFrom(vectorObject);
+	}
+
+	public Vec3f add(Vector3fc vec) {
+		return add(new Vec3f(vec));
+	}
+
+	public Vec3f sub(Vector3fc vec) {
+		return sub(new Vec3f(vec));
+	}
+
+	public Vec3f mul(Vector3fc vec) {
+		return mul(new Vec3f(vec));
+	}
+
 	@Override
 	public <T> Vec3f readFrom(T vectorObject) {
 		try {
@@ -55,6 +88,10 @@ public class Vec3f implements IVector3Math<Float, Vec3f, IVector3<? extends Numb
 			e.printStackTrace();
 			return vectorObject;
 		}
+	}
+
+	public boolean isFinite() {
+		return MathHelper.isFinite(x) && MathHelper.isFinite(y) && MathHelper.isFinite(z);
 	}
 	
 	@Override
