@@ -1,11 +1,8 @@
 package de.m_marvin.univec.impl;
 
-import de.m_marvin.univec.MathHelper;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector2;
 import de.m_marvin.univec.api.IVector2Math;
-import org.joml.Vector2f;
-import org.joml.Vector2fc;
 
 /*
  * Implementation of a 2 dimensional float vector
@@ -18,19 +15,6 @@ public class Vec2f implements IVector2Math<Float, Vec2f, IVector2<? extends Numb
 	public Vec2f(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	public Vec2f(Vector2fc vec) {
-		this.x = vec.x();
-		this.y = vec.y();
-	}
-
-	public Vector2fc convB() {
-		return new Vector2f(x,y);
-	}
-
-	public Vector2f conv() {
-		return new Vector2f(x,y);
 	}
 
 	public Vec2f() {
@@ -46,23 +30,7 @@ public class Vec2f implements IVector2Math<Float, Vec2f, IVector2<? extends Numb
 	public static Vec2f fromVec(Object vectorObject) {
 		return new Vec2f(0, 0).readFrom(vectorObject);
 	}
-
-	public <T> Vec2f(T vectorObject) {
-		readFrom(vectorObject);
-	}
-
-	public Vec2f add(Vector2fc vec) {
-		return add(new Vec2f(vec));
-	}
-
-	public Vec2f sub(Vector2fc vec) {
-		return sub(new Vec2f(vec));
-	}
-
-	public Vec2f mul(Vector2fc vec) {
-		return mul(new Vec2f(vec));
-	}
-
+	
 	@Override
 	public <T> Vec2f readFrom(T vectorObject) {
 		try {
@@ -81,10 +49,6 @@ public class Vec2f implements IVector2Math<Float, Vec2f, IVector2<? extends Numb
 			e.printStackTrace();
 			return vectorObject;
 		}
-	}
-
-	public boolean isFinite() {
-		return MathHelper.isFinite(x) && MathHelper.isFinite(y);
 	}
 	
 	@Override

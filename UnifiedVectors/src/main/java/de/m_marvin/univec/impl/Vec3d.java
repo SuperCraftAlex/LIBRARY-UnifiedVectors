@@ -2,12 +2,9 @@ package de.m_marvin.univec.impl;
 
 import de.m_marvin.unimat.api.IQuaternion;
 import de.m_marvin.unimat.impl.Quaternion;
-import de.m_marvin.univec.MathHelper;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector3;
 import de.m_marvin.univec.api.IVector3Math;
-import org.joml.Vector3d;
-import org.joml.Vector3dc;
 
 /*
  * Implementation of a 3 dimensional double vector
@@ -22,20 +19,6 @@ public class Vec3d implements IVector3Math<Double, Vec3d, IVector3<? extends Num
 		this.x = x;
 		this.y = y;
 		this.z = z;
-	}
-
-	public Vec3d(Vector3dc vec) {
-		this.x = vec.x();
-		this.y = vec.y();
-		this.z = vec.z();
-	}
-
-	public Vector3dc convB() {
-		return new Vector3d(x,y, z);
-	}
-
-	public Vector3d conv() {
-		return new Vector3d(x,y, z);
 	}
 
 	public Vec3d() {
@@ -53,23 +36,7 @@ public class Vec3d implements IVector3Math<Double, Vec3d, IVector3<? extends Num
 	public static Vec3d fromVec(Object vectorObject) {
 		return new Vec3d(0, 0, 0).readFrom(vectorObject);
 	}
-
-	public <T> Vec3d(T vectorObject) {
-		readFrom(vectorObject);
-	}
-
-	public Vec3d add(Vector3dc vec) {
-		return add(new Vec3d(vec));
-	}
-
-	public Vec3d sub(Vector3dc vec) {
-		return sub(new Vec3d(vec));
-	}
-
-	public Vec3d mul(Vector3dc vec) {
-		return mul(new Vec3d(vec));
-	}
-
+	
 	@Override
 	public <T> Vec3d readFrom(T vectorObject) {
 		try {
@@ -88,10 +55,6 @@ public class Vec3d implements IVector3Math<Double, Vec3d, IVector3<? extends Num
 			e.printStackTrace();
 			return vectorObject;
 		}
-	}
-
-	public boolean isFinite() {
-		return MathHelper.isFinite(x) && MathHelper.isFinite(y) && MathHelper.isFinite(z);
 	}
 	
 	@Override

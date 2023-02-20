@@ -4,14 +4,8 @@ import java.util.Objects;
 
 import de.m_marvin.unimat.api.IMatrix3f;
 import de.m_marvin.unimat.api.IQuaternion;
-import de.m_marvin.univec.MathHelper;
 import de.m_marvin.univec.api.IVector3;
-import de.m_marvin.univec.impl.Vec3d;
 import de.m_marvin.univec.impl.Vec3f;
-import org.joml.Quaterniond;
-import org.joml.Quaterniondc;
-import org.joml.Quaternionf;
-import org.joml.Quaternionfc;
 
 public class Quaternion implements IQuaternion<Quaternion> {
 	
@@ -25,56 +19,6 @@ public class Quaternion implements IQuaternion<Quaternion> {
 		this.j = j;
 		this.k = k;
 		this.r = r;
-	}
-
-
-	public Quaternion(double i, double j, double k, double r) {
-		this.i = (float)i;
-		this.j = (float)j;
-		this.k = (float)k;
-		this.r = (float)r;
-	}
-
-	public Quaternion(Quaternionfc q) {
-		this.i = q.x();
-		this.j = q.y();
-		this.k = q.z();
-		this.r = q.w();
-	}
-
-	public Quaternion(Quaterniondc q) {
-		this.i = (float)q.x();
-		this.j = (float)q.y();
-		this.k = (float)q.z();
-		this.r = (float)q.w();
-	}
-
-	public Quaternionfc convB() {
-		return new Quaternionf(
-			this.i,
-			this.j,
-			this.k,
-			this.r
-		);
-	}
-
-	public Quaternionf conv() {
-		return new Quaternionf(
-				this.i,
-				this.j,
-				this.k,
-				this.r
-		);
-	}
-
-	public Quaterniondc convD() {
-		return new Quaterniond(
-				this.i,
-				this.j,
-				this.k,
-				this.r
-		);
-
 	}
 	
 	public Quaternion(IVector3<? extends Number> rotationAxis, float radians) {
@@ -228,69 +172,6 @@ public class Quaternion implements IQuaternion<Quaternion> {
 	@Override
 	public String toString() {
 		return "Quternion[" + this.i + ", " + this.j + ", " + this.k + ", " + this.r + "]";
-	}
-
-	public Quaternion set(float i, float j, float k, float r){
-		this.i = i;
-		this.j = j;
-		this.k = k;
-		this.r = r;
-		return this;
-	}
-
-	public Quaternion set(double i, double j, double k, double r){
-		this.i = (float)i;
-		this.j = (float)j;
-		this.k = (float)k;
-		this.r = (float)r;
-		return this;
-	}
-
-	//from JOML:
-	public Quaternion rotateX(double angle) {
-		return rotateX(angle, this);
-	}
-
-	public Quaternion rotateX(double angle, Quaternion dest) {
-		double sin = Math.sin(angle * 0.5);
-		double cos = MathHelper.cosFromSin(sin, angle * 0.5);
-		return dest.set(i * sin + j * cos,
-				k * cos + r * sin,
-				r * cos - k * sin,
-				i * cos - j * sin);
-	}
-
-	public Quaternion rotateY(double angle) {
-		return rotateY(angle, this);
-	}
-
-	/*
-	i   w
-	j   x
-	k   y
-	r	z
-	 */
-
-	public Quaternion rotateY(double angle, Quaternion dest) {
-		double sin = Math.sin(angle * 0.5);
-		double cos = MathHelper.cosFromSin(sin, angle * 0.5);
-		return dest.set(j * cos - r * sin,
-				i * sin + k * cos,
-				j * sin + r * cos,
-				i * cos - k * sin);
-	}
-
-	public Quaternion rotateZ(double angle) {
-		return rotateZ(angle, this);
-	}
-
-	public Quaternion rotateZ(double angle, Quaternion dest) {
-		double sin = Math.sin(angle * 0.5);
-		double cos = MathHelper.cosFromSin(sin, angle * 0.5);
-		return dest.set(j * cos + k * sin,
-				k * cos - j * sin,
-				i * sin + r * cos,
-				i * cos - r * sin);
 	}
 	
 }

@@ -5,8 +5,6 @@ import de.m_marvin.unimat.impl.Quaternion;
 import de.m_marvin.univec.VectorParser;
 import de.m_marvin.univec.api.IVector3;
 import de.m_marvin.univec.api.IVector3Math;
-import org.joml.Vector3i;
-import org.joml.Vector3ic;
 
 /*
  * Implementation of a 3 dimensional integer vector
@@ -21,20 +19,6 @@ public class Vec3i implements IVector3Math<Integer, Vec3i, IVector3<? extends Nu
 		this.x = x;
 		this.y = y;
 		this.z = z;
-	}
-
-	public Vec3i(Vector3ic vec) {
-		this.x = vec.x();
-		this.y = vec.y();
-		this.z = vec.z();
-	}
-
-	public Vector3ic convB() {
-		return new Vector3i(x,y, z);
-	}
-
-	public Vector3i conv() {
-		return new Vector3i(x,y, z);
 	}
 
 	public Vec3i() {
@@ -52,23 +36,7 @@ public class Vec3i implements IVector3Math<Integer, Vec3i, IVector3<? extends Nu
 	public static Vec3i fromVec(Object vectorObject) {
 		return new Vec3i(0, 0, 0).readFrom(vectorObject);
 	}
-
-	public <T> Vec3i(T vectorObject) {
-		readFrom(vectorObject);
-	}
-
-	public Vec3i add(Vector3ic vec) {
-		return add(new Vec3i(vec));
-	}
-
-	public Vec3i sub(Vector3ic vec) {
-		return sub(new Vec3i(vec));
-	}
-
-	public Vec3i mul(Vector3ic vec) {
-		return mul(new Vec3i(vec));
-	}
-
+	
 	@Override
 	public <T> Vec3i readFrom(T vectorObject) {
 		try {
