@@ -66,13 +66,9 @@ public class Vec2d implements IVector2Math<Double, Vec2d, IVector2<? extends Num
 	@Override
 	public <T> Vec2d readFrom(T vectorObject) {
 		try {
-			Vec2d v = (Vec2d) VectorParser.parseVectorObject(vectorObject, new Vec2d(0, 0));
-			this.x = v.x;
-			this.y = v.y;
+			VectorParser.parseVectorObject(vectorObject, this);
 		} catch (IllegalAccessException | IllegalArgumentException e) {
 			e.printStackTrace();
-			this.x = 0;
-			this.y = 0;
 		}
 		return this;
 	}
@@ -200,7 +196,12 @@ public class Vec2d implements IVector2Math<Double, Vec2d, IVector2<? extends Num
 				Math.max((Double) min, Math.min(this.y, (Double) max))
 			);
 	}
-
+	
+	@Override
+	public boolean isFinite() {
+		return Double.isFinite(x) && Double.isFinite(y);
+	}
+	
 	@Override
 	public double angle(IVector2<? extends Number> vec) {
 		return Math.atan2(this.y, this.x)-Math.atan2(vec.y().doubleValue(), vec.x().doubleValue());
@@ -273,6 +274,16 @@ public class Vec2d implements IVector2Math<Double, Vec2d, IVector2<? extends Num
 	@Override
 	public Class<? extends Number> getTypeClass() {
 		return Double.class;
+	}
+	
+	@Override
+	public Vec2d anyOrthogonal() {
+		return new Vec2d(-y, x);
+	}
+	
+	@Override
+	public Vec2d[] orthogonals() {
+		return new Vec2d[] {new Vec2d(-y, x), new Vec2d(y, -x)};
 	}
 	
 }

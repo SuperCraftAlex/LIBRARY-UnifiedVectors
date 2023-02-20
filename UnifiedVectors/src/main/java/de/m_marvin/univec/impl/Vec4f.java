@@ -61,17 +61,9 @@ public class Vec4f implements IVector4Math<Float, Vec4f, IVector4<? extends Numb
 	@Override
 	public <T> Vec4f readFrom(T vectorObject) {
 		try {
-			Vec4f v = (Vec4f) VectorParser.parseVectorObject(vectorObject, new Vec4f(0, 0, 0, 0));
-			this.x = v.x;
-			this.y = v.y;
-			this.z = v.z;
-			this.w = v.w;
+			VectorParser.parseVectorObject(vectorObject, this);
 		} catch (IllegalAccessException | IllegalArgumentException e) {
 			e.printStackTrace();
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-			this.w = 0;
 		}
 		return this;
 	}
@@ -228,6 +220,11 @@ public class Vec4f implements IVector4Math<Float, Vec4f, IVector4<? extends Numb
 			);
 	}
 
+	@Override
+	public boolean isFinite() {
+		return Float.isFinite(x) && Float.isFinite(y) && Float.isFinite(z) && Float.isFinite(w);
+	}
+	
 	@Override
 	public Float dot(IVector4<? extends Number> vec) {
 		return this.x * vec.x().floatValue() + this.y * vec.y().floatValue() + this.z * vec.z().floatValue() + this.w * vec.w().floatValue();

@@ -61,17 +61,9 @@ public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Num
 	@Override
 	public <T> Vec4d readFrom(T vectorObject) {
 		try {
-			Vec4d v = (Vec4d) VectorParser.parseVectorObject(vectorObject, new Vec4d(0, 0, 0, 0));
-			this.x = v.x;
-			this.y = v.y;
-			this.z = v.z;
-			this.w = v.w;
+			VectorParser.parseVectorObject(vectorObject, this);
 		} catch (IllegalAccessException | IllegalArgumentException e) {
 			e.printStackTrace();
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-			this.w = 0;
 		}
 		return this;
 	}
@@ -228,6 +220,11 @@ public class Vec4d implements IVector4Math<Double, Vec4d, IVector4<? extends Num
 			);
 	}
 
+	@Override
+	public boolean isFinite() {
+		return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z) && Double.isFinite(w);
+	}
+	
 	@Override
 	public Double dot(IVector4<? extends Number> vec) {
 		return this.x * vec.x().doubleValue() + this.y * vec.y().doubleValue() + this.z * vec.z().doubleValue() + this.w * vec.w().doubleValue();

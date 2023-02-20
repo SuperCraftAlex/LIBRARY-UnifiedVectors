@@ -60,17 +60,9 @@ public class Vec4i implements IVector4Math<Integer, Vec4i, IVector4<? extends Nu
 	@Override
 	public <T> Vec4i readFrom(T vectorObject) {
 		try {
-			Vec4i v = (Vec4i) VectorParser.parseVectorObject(vectorObject, new Vec4i(0, 0, 0, 0));
-			this.x = v.x;
-			this.y = v.y;
-			this.z = v.z;
-			this.w = v.w;
+			VectorParser.parseVectorObject(vectorObject, this);
 		} catch (IllegalAccessException | IllegalArgumentException e) {
 			e.printStackTrace();
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-			this.w = 0;
 		}
 		return this;
 	}
@@ -222,7 +214,12 @@ public class Vec4i implements IVector4Math<Integer, Vec4i, IVector4<? extends Nu
 				Math.max((Integer) min, Math.min(this.w, (Integer) max))
 			);
 	}
-
+	
+	@Override
+	public boolean isFinite() {
+		return true;
+	}
+	
 	@Override
 	public Integer dot(IVector4<? extends Number> vec) {
 		return this.x * vec.x().intValue() + this.y * vec.y().intValue() + this.z * vec.z().intValue() + this.w * vec.w().intValue();
